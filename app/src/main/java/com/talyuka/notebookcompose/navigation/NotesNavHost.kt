@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.talyuka.notebookcompose.screens.Add
-import com.talyuka.notebookcompose.screens.Main
-import com.talyuka.notebookcompose.screens.Note
-import com.talyuka.notebookcompose.screens.Start
+import com.talyuka.notebookcompose.screens.AddScreen
+import com.talyuka.notebookcompose.screens.MainScreen
+import com.talyuka.notebookcompose.screens.NoteScreen
+import com.talyuka.notebookcompose.screens.StartScreen
 
 sealed class NavRoute(val route: String) {
     object Start : NavRoute("start_screen")
@@ -20,9 +20,9 @@ sealed class NavRoute(val route: String) {
 fun NotesNavHost() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = NavRoute.Start.route) {
-        composable(NavRoute.Start.route) { Start(navController = navController) }
-        composable(NavRoute.Main.route) { Main(navController = navController) }
-        composable(NavRoute.Add.route) { Add(navController = navController) }
-        composable(NavRoute.Note.route) { Note(navController = navController) }
+        composable(NavRoute.Start.route) { StartScreen(navController = navController) }
+        composable(NavRoute.Main.route) { MainScreen(navController = navController) }
+        composable(NavRoute.Add.route) { AddScreen(navController = navController) }
+        composable(NavRoute.Note.route) { NoteScreen(navController = navController) }
     }
 }
