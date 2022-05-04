@@ -32,7 +32,7 @@ fun AddScreen(navController: NavHostController) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = "Добавить запись",
@@ -43,12 +43,12 @@ fun AddScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text(text = "Note title") }
+                label = { Text(text = "Заголовок") }
             )
             OutlinedTextField(
                 value = subtitle,
                 onValueChange = { subtitle = it },
-                label = { Text(text = "Note subtitle") }
+                label = { Text(text = "Описание") }
             )
             Button(
                 modifier = Modifier.padding(16.dp),

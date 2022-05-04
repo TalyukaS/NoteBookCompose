@@ -39,25 +39,27 @@ fun StartScreen(navController: NavHostController) {
             Text(text = "Какую базу использовать?", modifier = Modifier.padding(bottom = 16.dp))
             Button(
                 onClick = {
-                    mViewModel.initDatabase(TYPE_ROOM)
-                    navController.navigate(route = NavRoute.Main.route)
+                    mViewModel.initDatabase(TYPE_ROOM) {
+                        navController.navigate(route = NavRoute.Main.route)
+                    }
                 },
                 modifier = Modifier
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Room database")
+                Text(text = "Локальная")
             }
             Button(
                 onClick = {
-                    mViewModel.initDatabase(TYPE_FIREBASE)
-                    navController.navigate(route = NavRoute.Main.route)
+                    mViewModel.initDatabase(TYPE_FIREBASE) {
+                        navController.navigate(route = NavRoute.Main.route)
+                    }
                 },
                 modifier = Modifier
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Firebase database")
+                Text(text = "Удаленная")
             }
         }
 

@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                                     color = Color.Black
                                 )
                             },
-                            backgroundColor = Color.LightGray,
+                            backgroundColor = MaterialTheme.colors.secondaryVariant,
                             contentColor = Color.Blue,
                             elevation = 10.dp
                         )
