@@ -6,10 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,10 +32,8 @@ import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(navController: NavHostController) {
-    val context = LocalContext.current
-    val mViewModel: MainViewModel =
-        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
+    val notes = viewModel.readAllNotes().observeAsState(listOf()).value
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -47,25 +48,11 @@ fun MainScreen(navController: NavHostController) {
             }
         }
     ) {
-        /*Column(
-             modifier = Modifier.padding(vertical = 8.dp),
-             horizontalAlignment = Alignment.CenterHorizontally
-         ) {
-             NoteItem(title = "Первая запись",
-                 subtitle = "Перечень чего либо",
-                 navController = navController)
-             NoteItem(title = "Вторая запись",
-                 subtitle = "чего либо Перечень",
-                 navController = navController)
-             NoteItem(title = "Третья запись",
-                 subtitle = "либо чего Перечень",
-                 navController = navController
-         }*/
-        /*LazyColumn {
+        LazyColumn {
             items(notes) { note ->
                 NoteItem(note = note, navController = navController)
             }
-        }*/
+        }
     }
 }
 
@@ -104,6 +91,9 @@ fun NoteItem(note: Note, navController: NavHostController) {
 @Composable
 fun PrevMainScreen() {
     NoteBookComposeTheme {
-        MainScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel: MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        MainScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
