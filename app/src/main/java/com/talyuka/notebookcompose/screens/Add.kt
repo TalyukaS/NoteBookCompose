@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
@@ -26,6 +28,10 @@ import com.talyuka.notebookcompose.MainViewModelFactory
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.navigation.NavRoute
 import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
+import com.talyuka.notebookcompose.utils.Constants.Keys.ADD_NEW_NOTES
+import com.talyuka.notebookcompose.utils.Constants.Keys.ADD_NOTES
+import com.talyuka.notebookcompose.utils.Constants.Keys.SUBTITLE_NEW_NOTES
+import com.talyuka.notebookcompose.utils.Constants.Keys.TITLE_NEW_NOTES
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -37,15 +43,16 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = "Добавить запись",
+                text = ADD_NEW_NOTES,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 16.dp)
             )
             OutlinedTextField(
                 value = title,
@@ -53,7 +60,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     title = it
                     isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Заголовок") },
+                label = { Text(text = TITLE_NEW_NOTES) },
                 isError = title.isEmpty()
             )
             OutlinedTextField(
@@ -62,7 +69,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     subtitle = it
                     isButtonEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Описание") },
+                label = { Text(text = SUBTITLE_NEW_NOTES) },
                 isError = subtitle.isEmpty()
             )
             Button(
@@ -74,7 +81,7 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                     }
                 }
             ) {
-                Text(text = "Добавить")
+                Text(text = ADD_NOTES)
             }
         }
     }

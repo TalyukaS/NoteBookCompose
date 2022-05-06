@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -15,8 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,7 @@ import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
 fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
     val notes = viewModel.readAllNotes().observeAsState(listOf()).value
     Scaffold(
+        modifier = Modifier.padding(top = 8.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -63,9 +68,10 @@ fun NoteItem(note: Note, navController: NavHostController) {
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 12.dp)
             .clickable {
-                navController.navigate(NavRoute.Note.route)
+                navController.navigate(NavRoute.Note.route + "/${note.id}")
             },
         elevation = 6.dp,
+        shape = RoundedCornerShape(15.dp),
         backgroundColor = MaterialTheme.colors.secondaryVariant
     ) {
         Column(
@@ -74,14 +80,19 @@ fun NoteItem(note: Note, navController: NavHostController) {
             horizontalAlignment = Alignment.Start
         ) {
             Text(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp),
                 text = note.title,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.secondary,
+                style = TextStyle(shadow = Shadow(Color.LightGray , Offset(5.0f, 8.0f), 1.0f))
             )
             Text(
                 text = note.subtitle,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Normal,
+                maxLines = 3
             )
         }
     }

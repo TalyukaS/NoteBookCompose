@@ -6,12 +6,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.talyuka.notebookcompose.navigation.NotesNavHost
 import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
+import com.talyuka.notebookcompose.utils.Constants.Keys.NAME_APP
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -34,16 +35,16 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = {
                                 Text(
-                                    text = "Блокнот",
+                                    text = NAME_APP,
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = Color.Black
+                                    fontStyle = FontStyle.Italic,
+                                    color = MaterialTheme.colors.secondaryVariant
                                 )
                             },
-                            backgroundColor = MaterialTheme.colors.secondaryVariant,
+                            backgroundColor = MaterialTheme.colors.primaryVariant,
                             contentColor = Color.Blue,
                             elevation = 10.dp,
-                            modifier = Modifier.padding(bottom = 8.dp)
                         )
                     },
                     content = {

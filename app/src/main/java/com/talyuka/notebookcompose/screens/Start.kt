@@ -19,6 +19,9 @@ import com.talyuka.notebookcompose.MainViewModel
 import com.talyuka.notebookcompose.MainViewModelFactory
 import com.talyuka.notebookcompose.navigation.NavRoute
 import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
+import com.talyuka.notebookcompose.utils.Constants.Keys.FIREBASE_DATABASE
+import com.talyuka.notebookcompose.utils.Constants.Keys.NAME_DATABASE
+import com.talyuka.notebookcompose.utils.Constants.Keys.ROOM_DATABASE
 import com.talyuka.notebookcompose.utils.TYPE_FIREBASE
 import com.talyuka.notebookcompose.utils.TYPE_ROOM
 
@@ -36,7 +39,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Какую базу использовать?", modifier = Modifier.padding(bottom = 16.dp))
+            Text(text = NAME_DATABASE, modifier = Modifier.padding(bottom = 16.dp))
             Button(
                 onClick = {
                     mViewModel.initDatabase(TYPE_ROOM) {
@@ -47,7 +50,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Локальная")
+                Text(text = ROOM_DATABASE)
             }
             Button(
                 onClick = {
@@ -59,7 +62,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .width(200.dp)
                     .padding(vertical = 8.dp)
             ) {
-                Text(text = "Удаленная")
+                Text(text = FIREBASE_DATABASE)
             }
         }
 

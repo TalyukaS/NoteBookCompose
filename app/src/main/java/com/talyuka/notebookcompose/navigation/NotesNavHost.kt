@@ -9,12 +9,17 @@ import com.talyuka.notebookcompose.screens.AddScreen
 import com.talyuka.notebookcompose.screens.MainScreen
 import com.talyuka.notebookcompose.screens.NoteScreen
 import com.talyuka.notebookcompose.screens.StartScreen
+import com.talyuka.notebookcompose.utils.Constants
+import com.talyuka.notebookcompose.utils.Constants.Screens.ADD_SCREEN
+import com.talyuka.notebookcompose.utils.Constants.Screens.MAIN_SCREEN
+import com.talyuka.notebookcompose.utils.Constants.Screens.NOTE_SCREEN
+import com.talyuka.notebookcompose.utils.Constants.Screens.START_SCREEN
 
 sealed class NavRoute(val route: String) {
-    object Start : NavRoute("start_screen")
-    object Main : NavRoute("main_screen")
-    object Add : NavRoute("add_screen")
-    object Note : NavRoute("note_screen")
+    object Start : NavRoute(START_SCREEN)
+    object Main : NavRoute(MAIN_SCREEN)
+    object Add : NavRoute(ADD_SCREEN)
+    object Note : NavRoute(NOTE_SCREEN)
 }
 
 @Composable
@@ -30,8 +35,9 @@ fun NotesNavHost(mViewModel: MainViewModel) {
         composable(NavRoute.Add.route) {
             AddScreen(navController = navController, viewModel = mViewModel)
         }
-        composable(NavRoute.Note.route) {
-            NoteScreen(navController = navController, viewModel = mViewModel)
+        composable(NavRoute.Note.route + "/{${Constants.Keys.ID}}") { backStackEntry ->
+            NoteScreen(navController = navController, viewModel = mViewModel,
+            noteId = backStackEntry.arguments?.getString(Constants.Keys.ID))
         }
     }
 }
