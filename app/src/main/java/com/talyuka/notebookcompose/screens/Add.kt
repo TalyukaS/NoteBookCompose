@@ -1,7 +1,6 @@
 package com.talyuka.notebookcompose.screens
 
 import android.annotation.SuppressLint
-import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,19 +14,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.talyuka.notebookcompose.MainViewModel
-import com.talyuka.notebookcompose.MainViewModelFactory
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.navigation.NavRoute
-import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
 import com.talyuka.notebookcompose.utils.Constants.Keys.ADD_NEW_NOTES
 import com.talyuka.notebookcompose.utils.Constants.Keys.ADD_NOTES
 import com.talyuka.notebookcompose.utils.Constants.Keys.SUBTITLE_NEW_NOTES
@@ -43,7 +36,8 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
@@ -84,16 +78,5 @@ fun AddScreen(navController: NavHostController, viewModel: MainViewModel) {
                 Text(text = ADD_NOTES)
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PrevAddScreen() {
-    NoteBookComposeTheme {
-        val context = LocalContext.current
-        val mViewModel: MainViewModel =
-            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-        AddScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }

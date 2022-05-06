@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    //id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -64,7 +64,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    /*implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.1.1'
@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.1.1'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.firebase:firebase-analytics:20.1.2'
-    implementation 'com.firebaseui:firebase-ui-database:8.0.1'*/
+    implementation 'com.firebaseui:firebase-ui-database:8.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

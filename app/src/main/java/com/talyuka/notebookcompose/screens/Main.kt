@@ -1,7 +1,6 @@
 package com.talyuka.notebookcompose.screens
 
 import android.annotation.SuppressLint
-import android.app.Application
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,20 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.talyuka.notebookcompose.MainViewModel
-import com.talyuka.notebookcompose.MainViewModelFactory
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.navigation.NavRoute
-import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -86,7 +79,7 @@ fun NoteItem(note: Note, navController: NavHostController) {
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.secondary,
-                style = TextStyle(shadow = Shadow(Color.LightGray , Offset(5.0f, 8.0f), 1.0f))
+                style = TextStyle(shadow = Shadow(Color.LightGray, Offset(5.0f, 8.0f), 1.0f))
             )
             Text(
                 text = note.subtitle,
@@ -95,16 +88,5 @@ fun NoteItem(note: Note, navController: NavHostController) {
                 maxLines = 3
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PrevMainScreen() {
-    NoteBookComposeTheme {
-        val context = LocalContext.current
-        val mViewModel: MainViewModel =
-            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-        MainScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }

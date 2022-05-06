@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "978311371787",
+    "project_id": "notecompose",
+    "storage_bucket": "notecompose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978311371787:android:2fe82af6d57c7a28fbbb0e",
+        "android_client_info": {
+          "package_name": "com.talyuka.notebookcompose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978311371787-28r1jf2cu4n9p56tpfokmm3nl1r7ai04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.talyuka.notebookcompose",
+            "certificate_hash": "395fca29588c849c6798f15bc2e3c05567ba6c50"
+          }
+        },
+        {
+          "client_id": "978311371787-agbcleb48mfc4437v36kj1l37q3l8tsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMNodGWMUtqEuVE-hd6O7WStv-FZVAnTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978311371787-agbcleb48mfc4437v36kj1l37q3l8tsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

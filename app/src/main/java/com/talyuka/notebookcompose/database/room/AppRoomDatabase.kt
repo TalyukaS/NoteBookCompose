@@ -11,11 +11,9 @@ import com.talyuka.notebookcompose.utils.Constants.Keys.NOTE_DATABASE
 @Database(entities = [Note::class], version = 1)
 abstract class AppRoomDatabase : RoomDatabase() {
     abstract fun getRoomDao(): NoteRoomDao
-
     companion object {
         @Volatile
         private var INSTANCE: AppRoomDatabase? = null
-
         fun getInstance(context: Context): AppRoomDatabase {
             return if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(

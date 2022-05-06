@@ -1,7 +1,6 @@
 package com.talyuka.notebookcompose.screens
 
 import android.annotation.SuppressLint
-import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,20 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.talyuka.notebookcompose.MainViewModel
-import com.talyuka.notebookcompose.MainViewModelFactory
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.navigation.NavRoute
-import com.talyuka.notebookcompose.ui.theme.NoteBookComposeTheme
 import com.talyuka.notebookcompose.utils.Constants.Keys.DELETE
 import com.talyuka.notebookcompose.utils.Constants.Keys.EDIT_NOTE
 import com.talyuka.notebookcompose.utils.Constants.Keys.EMPTY
@@ -44,7 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteId: String?) {
     val notes = viewModel.readAllNotes().observeAsState(listOf()).value
-    val note = notes.firstOrNull{it.id ==noteId?.toInt()}?: Note(title = NONE, subtitle = NONE)
+    val note = notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subtitle = NONE)
     val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var title by remember { mutableStateOf(EMPTY) }
@@ -68,20 +61,26 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                     )
                     OutlinedTextField(
                         value = title,
-                        onValueChange = {title = it},
-                        label = {Text(text = TITLE)},
+                        onValueChange = { title = it },
+                        label = { Text(text = TITLE) },
                         isError = title.isEmpty()
                     )
                     OutlinedTextField(
                         value = subtitle,
-                        onValueChange = {subtitle = it},
-                        label = {Text(text = SUBTITLE)},
+                        onValueChange = { subtitle = it },
+                        label = { Text(text = SUBTITLE) },
                         isError = subtitle.isEmpty()
                     )
                     Button(
                         modifier = Modifier.padding(top = 16.dp),
                         onClick = {
-                            viewModel.updateNote(note = Note(id = note.id, title = title, subtitle = subtitle)){
+                            viewModel.updateNote(
+                                note = Note(
+                                    id = note.id,
+                                    title = title,
+                                    subtitle = subtitle
+                                )
+                            ) {
                                 navController.navigate((NavRoute.Main.route))
                             }
                         }
@@ -119,7 +118,13 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                             modifier = Modifier.padding(top = 4.dp),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            style = TextStyle(shadow = Shadow(Color.LightGray , Offset(5.0f, 8.0f), 1.0f))
+                            style = TextStyle(
+                                shadow = Shadow(
+                                    Color.LightGray,
+                                    Offset(5.0f, 8.0f),
+                                    1.0f
+                                )
+                            )
                         )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -127,7 +132,11 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                         ) {
                             Text(
                                 text = note.subtitle,
-                                modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
+                                modifier = Modifier.padding(
+                                    top = 12.dp,
+                                    start = 16.dp,
+                                    end = 16.dp
+                                ),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal
                             )
@@ -139,7 +148,7 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                         .padding(bottom = 8.dp)
                         .fillMaxHeight(),
                     contentAlignment = Alignment.BottomCenter
-                ){
+                ) {
                     Row(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
@@ -149,11 +158,11 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                     ) {
                         Button(
                             onClick = {
-                                viewModel.deleteNote(note = note){
+                                viewModel.deleteNote(note = note) {
                                     navController.navigate(NavRoute.Main.route)
                                 }
                             }
-                        ) {Text(text = DELETE)}
+                        ) { Text(text = DELETE) }
                         Button(
                             onClick = {
                                 coroutineScope.launch {
@@ -162,28 +171,13 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                                     bottomSheetState.show()
                                 }
                             }
-                        ) {Text(text = UPDATE)}
+                        ) { Text(text = UPDATE) }
                         Button(
-                            onClick = {navController.navigate(NavRoute.Main.route)}
-                        ) {Text(text = NAV_BACK)}
+                            onClick = { navController.navigate(NavRoute.Main.route) }
+                        ) { Text(text = NAV_BACK) }
                     }
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PrevNoteScreen() {
-    NoteBookComposeTheme {
-        val context = LocalContext.current
-        val mViewModel: MainViewModel =
-            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-        NoteScreen(
-            navController = rememberNavController(),
-            viewModel = mViewModel,
-            noteId = "1"
-        )
     }
 }

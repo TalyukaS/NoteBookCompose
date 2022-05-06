@@ -1,14 +1,17 @@
 package com.talyuka.notebookcompose
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.talyuka.notebookcompose.database.firebase.FirebaseRepository
 import com.talyuka.notebookcompose.database.room.AppRoomDatabase
 import com.talyuka.notebookcompose.database.room.repository.RoomRepository
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.utils.REPOSITORY
+import com.talyuka.notebookcompose.utils.TYPE_FIREBASE
 import com.talyuka.notebookcompose.utils.TYPE_ROOM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +24,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val dao = AppRoomDatabase.getInstance(context = context).getRoomDao()
                 REPOSITORY = RoomRepository(dao)
                 onSuccess()
+            }
+            TYPE_FIREBASE -> {
+                REPOSITORY = FirebaseRepository()
+                REPOSITORY.connectToDatabase(
+                    { onSuccess() },
+                    { Log.d("checkData", "Error: $(it)") }
+                )
             }
         }
     }

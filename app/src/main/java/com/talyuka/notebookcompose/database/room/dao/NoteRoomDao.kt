@@ -8,13 +8,10 @@ import com.talyuka.notebookcompose.model.Note
 interface NoteRoomDao {
     @Query("SELECT * FROM notes_table")
     fun getAllNotes(): LiveData<List<Note>>
-
     @Insert
     fun addNote(note: Note)
-
     @Update
     fun updateNote(note: Note)
-
     @Delete
     fun deleteNote(note: Note)
 }
