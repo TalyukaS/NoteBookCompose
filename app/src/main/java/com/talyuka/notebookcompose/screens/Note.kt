@@ -26,8 +26,8 @@ import com.talyuka.notebookcompose.utils.Constants.Keys.EDIT_NOTE
 import com.talyuka.notebookcompose.utils.Constants.Keys.EMPTY
 import com.talyuka.notebookcompose.utils.Constants.Keys.NAV_BACK
 import com.talyuka.notebookcompose.utils.Constants.Keys.NONE
-import com.talyuka.notebookcompose.utils.Constants.Keys.SUBTITLE
-import com.talyuka.notebookcompose.utils.Constants.Keys.TITLE
+import com.talyuka.notebookcompose.utils.Constants.Keys.SUBTITLES
+import com.talyuka.notebookcompose.utils.Constants.Keys.TITLES
 import com.talyuka.notebookcompose.utils.Constants.Keys.UPDATE
 import com.talyuka.notebookcompose.utils.Constants.Keys.UPDATE_NOTE
 import kotlinx.coroutines.launch
@@ -62,13 +62,13 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                     OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
-                        label = { Text(text = TITLE) },
+                        label = { Text(text = TITLES) },
                         isError = title.isEmpty()
                     )
                     OutlinedTextField(
                         value = subtitle,
                         onValueChange = { subtitle = it },
-                        label = { Text(text = SUBTITLE) },
+                        label = { Text(text = SUBTITLES) },
                         isError = subtitle.isEmpty()
                     )
                     Button(
