@@ -1,13 +1,16 @@
 package com.talyuka.notebookcompose.utils
 
+import androidx.compose.runtime.mutableStateOf
 import com.talyuka.notebookcompose.database.DatabaseRepository
 
 const val TYPE_DATABASE = "type_database"
 const val TYPE_ROOM = "type_room"
 const val TYPE_FIREBASE = "type_firebase"
+const val FIREBASE_ID = "firebaseId"
 lateinit var REPOSITORY: DatabaseRepository
 lateinit var LOGIN: String
 lateinit var PASSWORD: String
+var DB_TYPE = mutableStateOf("")
 
 object Constants {
     object Keys {
@@ -26,7 +29,6 @@ object Constants {
         const val FIREBASE_DATABASE = "Удаленная"
         const val NAME_APP = "Блокнот"
         const val ID = "Id"
-        const val NONE = "none"
         const val UPDATE = "Изменить"
         const val DELETE = "Удалить"
         const val NAV_BACK = "Возврат"
@@ -34,8 +36,7 @@ object Constants {
         const val UPDATE_NOTE = "Обновить"
         const val EMPTY = ""
         const val SIGN_IN = "Войти"
-        const val SIGN_UP = "Регистрация"
-        const val LOGIN_V = "Вход"
+        const val LOG_IN = "Вход"
         const val LOGIN_TEXT = "Логин"
         const val PASS_TEXT = "Пароль"
     }

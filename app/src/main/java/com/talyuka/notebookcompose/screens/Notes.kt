@@ -25,11 +25,13 @@ import com.talyuka.notebookcompose.utils.Constants.Keys.DELETE
 import com.talyuka.notebookcompose.utils.Constants.Keys.EDIT_NOTE
 import com.talyuka.notebookcompose.utils.Constants.Keys.EMPTY
 import com.talyuka.notebookcompose.utils.Constants.Keys.NAV_BACK
-import com.talyuka.notebookcompose.utils.Constants.Keys.NONE
 import com.talyuka.notebookcompose.utils.Constants.Keys.SUBTITLES
 import com.talyuka.notebookcompose.utils.Constants.Keys.TITLES
 import com.talyuka.notebookcompose.utils.Constants.Keys.UPDATE
 import com.talyuka.notebookcompose.utils.Constants.Keys.UPDATE_NOTE
+import com.talyuka.notebookcompose.utils.DB_TYPE
+import com.talyuka.notebookcompose.utils.TYPE_FIREBASE
+import com.talyuka.notebookcompose.utils.TYPE_ROOM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -37,7 +39,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteId: String?) {
     val notes = viewModel.readAllNotes().observeAsState(listOf()).value
-    val note = notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subtitle = NONE)
+    val note = when (DB_TYPE.value) {
+        TYPE_ROOM -> {
+            notes.firstOrNull { it.id == noteId?.toInt() } ?: Note()
+        }
+        TYPE_FIREBASE -> {
+            notes.firstOrNull { it.firebaseId == noteId } ?: Note()
+        }
+        else -> Note()
+    }
     val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var title by remember { mutableStateOf(EMPTY) }
@@ -78,7 +88,8 @@ fun NoteScreen(navController: NavHostController, viewModel: MainViewModel, noteI
                                 note = Note(
                                     id = note.id,
                                     title = title,
-                                    subtitle = subtitle
+                                    subtitle = subtitle,
+                                    firebaseId = note.firebaseId
                                 )
                             ) {
                                 navController.navigate((NavRoute.Main.route))

@@ -10,6 +10,8 @@ import com.talyuka.notebookcompose.database.firebase.FirebaseRepository
 import com.talyuka.notebookcompose.database.room.AppRoomDatabase
 import com.talyuka.notebookcompose.database.room.repository.RoomRepository
 import com.talyuka.notebookcompose.model.Note
+import com.talyuka.notebookcompose.utils.Constants.Keys.EMPTY
+import com.talyuka.notebookcompose.utils.DB_TYPE
 import com.talyuka.notebookcompose.utils.REPOSITORY
 import com.talyuka.notebookcompose.utils.TYPE_FIREBASE
 import com.talyuka.notebookcompose.utils.TYPE_ROOM
@@ -66,6 +68,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun readAllNotes() = REPOSITORY.readAll
+
+    fun signOut(onSuccess: () -> Unit) {
+        when(DB_TYPE.value){
+            TYPE_FIREBASE,
+            TYPE_ROOM -> {
+                REPOSITORY.signOut()
+                DB_TYPE.value = EMPTY
+                onSuccess()
+            }
+            else -> {Log.d("checkData", "выход: ELSE: ${DB_TYPE.value}")}
+        }
+    }
 }
 
 class MainViewModelFactory(private val application: Application) : ViewModelProvider.Factory {

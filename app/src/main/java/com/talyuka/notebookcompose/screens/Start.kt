@@ -1,7 +1,6 @@
 package com.talyuka.notebookcompose.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -17,10 +16,11 @@ import com.talyuka.notebookcompose.navigation.NavRoute
 import com.talyuka.notebookcompose.utils.*
 import com.talyuka.notebookcompose.utils.Constants.Keys.FIREBASE_DATABASE
 import com.talyuka.notebookcompose.utils.Constants.Keys.LOGIN_TEXT
-import com.talyuka.notebookcompose.utils.Constants.Keys.LOGIN_V
+import com.talyuka.notebookcompose.utils.Constants.Keys.LOG_IN
 import com.talyuka.notebookcompose.utils.Constants.Keys.NAME_DATABASE
 import com.talyuka.notebookcompose.utils.Constants.Keys.PASS_TEXT
 import com.talyuka.notebookcompose.utils.Constants.Keys.ROOM_DATABASE
+import com.talyuka.notebookcompose.utils.Constants.Keys.SIGN_IN
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -43,7 +43,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                         .padding(all = 32.dp)
                 ) {
                     Text(
-                        text = LOGIN_V,
+                        text = LOG_IN,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(vertical = 8.dp)
@@ -66,12 +66,13 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                             LOGIN = login
                             PASSWORD = password
                             viewModel.initDatabase(TYPE_FIREBASE) {
-                                Log.d("checkData", "Auth success")
+                                DB_TYPE.value = TYPE_FIREBASE
+                                navController.navigate((NavRoute.Main.route))
                             }
                         },
                         enabled = login.isNotEmpty() && password.isNotEmpty()
                     ) {
-                        Text(text = Constants.Keys.SIGN_IN)
+                        Text(text = SIGN_IN)
                     }
                 }
             }
@@ -89,6 +90,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                 Button(
                     onClick = {
                         viewModel.initDatabase(TYPE_ROOM) {
+                            DB_TYPE.value = TYPE_ROOM
                             navController.navigate(route = NavRoute.Main.route)
                         }
                     },

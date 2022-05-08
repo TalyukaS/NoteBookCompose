@@ -26,6 +26,10 @@ import androidx.navigation.NavHostController
 import com.talyuka.notebookcompose.MainViewModel
 import com.talyuka.notebookcompose.model.Note
 import com.talyuka.notebookcompose.navigation.NavRoute
+import com.talyuka.notebookcompose.utils.Constants.Keys.EMPTY
+import com.talyuka.notebookcompose.utils.DB_TYPE
+import com.talyuka.notebookcompose.utils.TYPE_FIREBASE
+import com.talyuka.notebookcompose.utils.TYPE_ROOM
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -36,7 +40,7 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(route = NavRoute.Add.route)
+                    navController.navigate(NavRoute.Add.route)
                 }) {
                 Icon(
                     imageVector = Icons.Filled.Add,
@@ -56,12 +60,17 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel) {
 
 @Composable
 fun NoteItem(note: Note, navController: NavHostController) {
+    val noteId = when(DB_TYPE.value){
+        TYPE_FIREBASE -> note.firebaseId
+        TYPE_ROOM -> note.id
+        else -> EMPTY
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 12.dp)
             .clickable {
-                navController.navigate(NavRoute.Note.route + "/${note.id}")
+                navController.navigate(NavRoute.Note.route + "/${noteId}")
             },
         elevation = 6.dp,
         shape = RoundedCornerShape(15.dp),
